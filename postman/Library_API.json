@@ -1,0 +1,440 @@
+{
+    "info": {
+      "_postman_id": "ab123456-1234-5678-abcd-1234567890ab",
+      "name": "Library API",
+      "description": "API collection for a simple library website",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Authentication",
+        "item": [
+          {
+            "name": "Register",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"name\": \"User Name\",\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}"
+              },
+              "url": {
+                "raw": "{{BASE_URL}}/api/auth/register",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "auth",
+                  "register"
+                ]
+              },
+              "description": "Register a new user"
+            },
+            "response": []
+          },
+          {
+            "name": "Login",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}"
+              },
+              "url": {
+                "raw": "{{BASE_URL}}/api/auth/login",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "auth",
+                  "login"
+                ]
+              },
+              "description": "Login a user"
+            },
+            "response": []
+          },
+          {
+            "name": "Get Current User",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{BASE_URL}}/api/auth/me",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "auth",
+                  "me"
+                ]
+              },
+              "description": "Get current logged in user"
+            },
+            "response": []
+          },
+          {
+            "name": "Make Admin",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{BASE_URL}}/api/auth/make-admin/:id",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "auth",
+                  "make-admin",
+                  ":id"
+                ],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "user_id_here",
+                    "description": "User ID to make admin"
+                  }
+                ]
+              },
+              "description": "Make a user an admin (requires admin privileges)"
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Books",
+        "item": [
+          {
+            "name": "Get All Books",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{BASE_URL}}/api/books?sort=-createdAt&limit=10&page=1",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "books"
+                ],
+                "query": [
+                  {
+                    "key": "sort",
+                    "value": "-createdAt",
+                    "description": "Sort by field (prefix with - for descending)"
+                  },
+                  {
+                    "key": "limit",
+                    "value": "10",
+                    "description": "Number of records per page"
+                  },
+                  {
+                    "key": "page",
+                    "value": "1",
+                    "description": "Page number"
+                  },
+                  {
+                    "key": "search",
+                    "value": "search_term",
+                    "description": "Search term",
+                    "disabled": true
+                  },
+                  {
+                    "key": "genre",
+                    "value": "fiction",
+                    "description": "Filter by genre",
+                    "disabled": true
+                  }
+                ]
+              },
+              "description": "Get all books with optional filtering, sorting, and pagination"
+            },
+            "response": []
+          },
+          {
+            "name": "Get Single Book",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{BASE_URL}}/api/books/:id",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "books",
+                  ":id"
+                ],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "book_id_here",
+                    "description": "Book ID"
+                  }
+                ]
+              },
+              "description": "Get a single book by ID"
+            },
+            "response": []
+          },
+          {
+            "name": "Create Book",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"title\": \"The Great Gatsby\",\n    \"author\": \"F. Scott Fitzgerald\",\n    \"genre\": \"Classic\",\n    \"price\": 12.99,\n    \"coverImage\": \"https://example.com/images/gatsby.jpg\",\n    \"description\": \"The Great Gatsby is a 1925 novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island...\"\n}"
+              },
+              "url": {
+                "raw": "{{BASE_URL}}/api/books",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "books"
+                ]
+              },
+              "description": "Create a new book (admin only)"
+            },
+            "response": []
+          },
+          {
+            "name": "Update Book",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"price\": 14.99,\n    \"description\": \"Updated description for The Great Gatsby...\"\n}"
+              },
+              "url": {
+                "raw": "{{BASE_URL}}/api/books/:id",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "books",
+                  ":id"
+                ],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "book_id_here",
+                    "description": "Book ID"
+                  }
+                ]
+              },
+              "description": "Update a book (admin only)"
+            },
+            "response": []
+          },
+          {
+            "name": "Delete Book",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{BASE_URL}}/api/books/:id",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "books",
+                  ":id"
+                ],
+                "variable": [
+                  {
+                    "key": "id",
+                    "value": "book_id_here",
+                    "description": "Book ID"
+                  }
+                ]
+              },
+              "description": "Delete a book (admin only)"
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Wishlist",
+        "item": [
+          {
+            "name": "Get Wishlist",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{BASE_URL}}/api/wishlist",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "wishlist"
+                ]
+              },
+              "description": "Get user's wishlist"
+            },
+            "response": []
+          },
+          {
+            "name": "Add to Wishlist",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{BASE_URL}}/api/wishlist/:bookId",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "wishlist",
+                  ":bookId"
+                ],
+                "variable": [
+                  {
+                    "key": "bookId",
+                    "value": "book_id_here",
+                    "description": "Book ID to add to wishlist"
+                  }
+                ]
+              },
+              "description": "Add a book to user's wishlist"
+            },
+            "response": []
+          },
+          {
+            "name": "Remove from Wishlist",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "{{BASE_URL}}/api/wishlist/:bookId",
+                "host": [
+                  "{{BASE_URL}}"
+                ],
+                "path": [
+                  "api",
+                  "wishlist",
+                  ":bookId"
+                ],
+                "variable": [
+                  {
+                    "key": "bookId",
+                    "value": "book_id_here",
+                    "description": "Book ID to remove from wishlist"
+                  }
+                ]
+              },
+              "description": "Remove a book from user's wishlist"
+            },
+            "response": []
+          }
+        ]
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ]
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ]
+        }
+      }
+    ],
+    "variable": [
+      {
+        "key": "BASE_URL",
+        "value": "http://localhost:5000",
+        "type": "string"
+      },
+      {
+        "key": "token",
+        "value": "",
+        "type": "string"
+      }
+    ]
+  }
