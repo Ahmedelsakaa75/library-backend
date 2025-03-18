@@ -115,27 +115,3 @@ db.users.updateOne({ _id: ObjectId("user_id_here") }, { $set: { role: "admin" } 
 ```
 
 Or, if another admin exists, they can use the `make-admin` endpoint to promote a user.
-
-## Deployment
-
-For deployment, you can use:
-
-1. **Render** - Easy setup with Git repository integration
-2. **Heroku** - Simple Node.js app deployment
-3. **Railway** - Modern platform with easy MongoDB integration
-4. **Fly.io** - Performance-focused cloud platform
-
-Example Deployment to Render:
-
-1. Create an account on Render
-2. Connect your Git repository
-3. Create a new Web Service
-4. Use the following settings:
-   - Environment: Node
-   - Build Command: `npm install`
-   - Start Command: `npm start`
-   - Add environment variables from your `.env` file
-
-## License
-
-[MIT](LICENSE)
